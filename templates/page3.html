@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech Recognition</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background: url('static/image/stn3.gif') center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #0c0c0c;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 15px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #stopRecording {
+            display: none;
+        }
+
+        #result {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Speech Recognition</h1>
+        <label for="directory">Directory:</label>
+        <input type="text" id="directory" placeholder="Enter directory">
+        <br>
+        <label for="filename">Filename:</label>
+        <input type="text" id="filename" placeholder="Enter filename">
+        <br>
+        <button id="startRecording">Start Recording</button>
+        <button id="stopRecording" style="display: none;">Stop Recording</button>
+        <button onclick="location.href='/'">Go to Home Page</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        const startRecording = () => {
+            console.log("Start recording");
+            const directory = document.getElementById("directory").value;
+            const filename = document.getElementById("filename").value;
+            // Call the Flask route to start recording
+            fetch('/process_audio1', {
+                method: 'POST',
+                body: JSON.stringify({ directory, filename }),  // Include directory and filename in the request body
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);  // Log the response for debugging
+                document.getElementById("result").innerHTML = data.message;  // Display the message in the result div
+            })
+            .catch(error => console.error('Error:', error));
+            document.getElementById("startRecording").style.display = "none";
+            document.getElementById("stopRecording").style.display = "inline-block";
+        };
+
+        const stopRecording = () => {
+            console.log("Stop recording");
+            document.getElementById("startRecording").style.display = "inline-block";
+            document.getElementById("stopRecording").style.display = "none";
+        };
+
+        document.getElementById("startRecording").addEventListener("click", startRecording);
+        document.getElementById("stopRecording").addEventListener("click", stopRecording);
+    </script>
+</body>
+</html>

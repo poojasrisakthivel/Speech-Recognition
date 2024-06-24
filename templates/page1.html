@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: url('static/image/f1.gif') center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 30px; /* Increase padding to increase button size */
+            margin: 10px;
+            font-size: 1.2em; /* Increase font size */
+            cursor: pointer;
+            background-color: #222324;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <button onclick="location.href='/page2'">Speech to Text</button>
+        <button onclick="location.href='/page3'">Speech to Note</button>
+        <button onclick="location.href='/page4'">Web Browser</button>
+        <button onclick="location.href='/page5'">Text to Speech</button>
+        <button onclick="location.href='/page6'">Feedback</button>
+    </div>
+</body>
+</html>
